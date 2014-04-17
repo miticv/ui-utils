@@ -323,7 +323,7 @@ angular.module('ui.mask', [])
             var eventWhich = e.which,
               eventType = e.type;
 
-            //fixes IE bug: on TAB text should be highlighted
+            //fixes IE bug: if TAB brings focus to this input, the text should be highlighted
             if (eventWhich === 9) { this.select(); return; }
 
             // Prevent shift and ctrl from mucking with old values
@@ -425,8 +425,8 @@ angular.module('ui.mask', [])
               caretPos++;
             }
             oldCaretPosition = caretPos;
-            //char position fix when mask does not starts with first character such as phone for example (___) ___-___
-            if (valueMasked[0] !== '_') caretPos++; 
+            //char position fix when on selected text user start typing and when mask does not starts with first character (such as phone for example (___) ___-___)
+            if (valUnmasked.length === 1 && valOld.indexOf('_') !== 0) { caretPos = 2; }
             setCaretPosition(this, caretPos);
           }
 
